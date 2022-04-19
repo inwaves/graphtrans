@@ -34,7 +34,7 @@ def main():
     parser.add_argument('--wandb_run_idx', type=str, default=None)
 
 
-    parser.add_argument('--data_root', type=str, default='/data/zhwu/ogb')
+    parser.add_argument('--data_root', type=str, default='data/zhwu/ogb')
     parser.add_argument('--dataset', type=str, default="ogbg-code",
                         help='dataset name (default: ogbg-code)')
 
@@ -107,6 +107,7 @@ def main():
     wandb.run.name = run_name
 
     device = torch.device("cuda") if torch.cuda.is_available() and args.devices else torch.device("cpu")
+    print(f"Device: {device}")
     args.save_path = f"exps/{run_name}-{now}"
     os.makedirs(args.save_path, exist_ok=True)
     if args.resume is not None:
