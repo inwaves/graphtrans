@@ -30,4 +30,4 @@
 #SBATCH -p ampere
 #/bin/bash
 
-python main.py --configs configs/code2/gnn-transformer/no-virtual/pooling=cls+norm_input.yml —-runs 5
+python main.py --configs configs/code2/gnn-transformer/no-virtual/pooling=cls+norm_input.yml --runs 5 --gnn_emb_dim 16

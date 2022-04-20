@@ -170,6 +170,7 @@ def main():
         os.makedirs(os.path.join(args.save_path, str(run_id)), exist_ok=True)
         best_val, final_test = 0, 0
         model = model_cls(num_tasks=num_tasks, args=args, node_encoder=node_encoder, edge_encoder_cls=edge_encoder_cls).to(device)
+        print(f"Model: {model}")
         print("Model Parameters: ", count_parameters(model))
         # exit(-1)
         # model = nn.DataParallel(model)

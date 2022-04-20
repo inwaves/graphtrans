@@ -9,6 +9,7 @@ from modules.gnn_module import GNNNodeEmbedding
 from modules.masked_transformer_encoder import MaskedOnlyTransformerEncoder
 from modules.transformer_encoder import TransformerNodeEncoder
 from modules.utils import pad_batch
+from utils import num_total_parameters
 
 from .base_model import BaseModel
 
@@ -86,6 +87,10 @@ class GNNTransformer(BaseModel):
         else:
             for i in range(args.max_seq_len):
                 self.graph_pred_linear_list.append(torch.nn.Linear(output_dim, self.num_tasks))
+        
+        print(f"Parameters in graph prediction readout fn: {num_total_parameters(self.graph_pred_linear_list)}")
+        print(f"Parameters in transformer: {num_total_parameters(self.gnn2transformer) +  num_total_parameters(self.transformer_encoder) + num_total_parameters(self.masked_transformer_encoder)}")
+
 
     def forward(self, batched_data, perturb=None):
         h_node = self.gnn_node(batched_data, perturb)
