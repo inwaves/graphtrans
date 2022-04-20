@@ -139,11 +139,12 @@ def main():
     split_idx = dataset_.get_idx_split()
     calc_loss = dataset_util.loss_fn(task_type)
     eval = dataset_util.eval
+    num_train_examples = 200_000 # Limiting because of computational cost.
 
     def create_loader(dataset, dataset_eval):
         test_data = compute_adjacency_list_cached(dataset[split_idx["test"]], key=f"{args.dataset}_test")
         valid_data = compute_adjacency_list_cached(dataset_eval[split_idx["valid"]], key=f"{args.dataset}_valid")
-        train_data = compute_adjacency_list_cached(dataset[split_idx["train"]], key=f"{args.dataset}_train")
+        train_data = compute_adjacency_list_cached(dataset[split_idx["train"][:num_train_examples]], key=f"{args.dataset}_train")
         logger.debug("Finished computing adjacency list")
 
         eval_bs = args.batch_size if args.eval_batch_size is None else args.eval_batch_size
