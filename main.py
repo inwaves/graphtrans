@@ -1,5 +1,6 @@
 import os
 import random
+import time
 from datetime import datetime
 
 import configargparse
@@ -82,6 +83,8 @@ def main():
     group.add_argument('--seed', type=int, default=None)
     # fmt: on
 
+    tic = time.time()
+
     args, _ = parser.parse_known_args()
 
     dataset_util = DATASET_UTILS[args.dataset]()
@@ -158,6 +161,7 @@ def main():
     def count_parameters(model):
         return sum(p.numel() for p in model.parameters() if p.requires_grad)
     def run(run_id):
+
         if "ogb" not in args.dataset:
             dataset, _, _, _, _ = dataset_util.preprocess(args)
             dataset_eval = dataset
@@ -276,6 +280,9 @@ def main():
         logger.info(f"Run {run_id} - val: {best_val}, test: {final_test}")
     logger.info(f"Average val accuracy: {np.mean(vals)} ± {np.std(vals)}")
     logger.info(f"Average test accuracy: {np.mean(tests)} ± {np.std(tests)}")
+
+    toc = time.time()
+    wandb.log(f"Time elapsed: {toc - tic}")
 
 
 if __name__ == "__main__":
