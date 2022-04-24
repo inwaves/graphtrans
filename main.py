@@ -272,7 +272,7 @@ def main():
         best_test_perf = eval(model, device, test_loader, evaluator)
 
         run_toc = time.time()
-        wandb.log(f"Run_id: {run_id} took {run_toc - run_tic} seconds")
+        wandb.log({f"{run_id}-elapsedtime": run_toc - run_tic})
         return best_valid_perf[dataset.eval_metric], best_test_perf[dataset.eval_metric]
 
     vals, tests = [], []
@@ -285,7 +285,7 @@ def main():
     logger.info(f"Average test accuracy: {np.mean(tests)} ± {np.std(tests)}")
 
     toc = time.time()
-    wandb.log(f"Total time elapsed: {toc - tic}")
+    wandb.log({f"total-elapsedtime": toc - tic})
 
 
 if __name__ == "__main__":
