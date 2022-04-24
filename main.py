@@ -161,7 +161,7 @@ def main():
     def count_parameters(model):
         return sum(p.numel() for p in model.parameters() if p.requires_grad)
     def run(run_id):
-
+        run_tic = time.time()
         if "ogb" not in args.dataset:
             dataset, _, _, _, _ = dataset_util.preprocess(args)
             dataset_eval = dataset
@@ -270,6 +270,9 @@ def main():
         model.load_state_dict(state_dict["model"])
         best_valid_perf = eval(model, device, valid_loader, evaluator)
         best_test_perf = eval(model, device, test_loader, evaluator)
+
+        run_toc = time.time()
+        wandb.log(f"Run_id: {run_id} took {run_toc - run_tic} seconds")
         return best_valid_perf[dataset.eval_metric], best_test_perf[dataset.eval_metric]
 
     vals, tests = [], []
@@ -282,7 +285,7 @@ def main():
     logger.info(f"Average test accuracy: {np.mean(tests)} ± {np.std(tests)}")
 
     toc = time.time()
-    wandb.log(f"Time elapsed: {toc - tic}")
+    wandb.log(f"Total time elapsed: {toc - tic}")
 
 
 if __name__ == "__main__":
