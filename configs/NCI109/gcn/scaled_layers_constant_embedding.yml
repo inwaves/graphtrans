@@ -1,4 +1,4 @@
-dataset: NCI1
+dataset: NCI109
 aug: baseline
 model_type: gnn
 gnn_type: gcn
@@ -7,5 +7,4 @@ runs: 1
 epochs: 200
 seed: 12344
 scheduler: plateau
-gnn_emb_dim: 184
-gnn_num_layer: 10
+gnn_num_layer: 20

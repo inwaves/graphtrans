@@ -9,7 +9,7 @@ lr: 0.0001
 scheduler: cosine
 
 num_encoder_layers: 5
-runs: 20
+runs: 1
 
 d_model: 256
 gnn_emb_dim: 256
