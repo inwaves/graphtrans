@@ -30,4 +30,4 @@
 #SBATCH -p ampere
 #/bin/bash
 
-python main.py --configs configs/NCI1/gcn/scaled.yml
+python main.py --configs configs/NCI1/gcn/scaled_layers_constant_embedding.yml
