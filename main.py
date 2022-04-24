@@ -219,6 +219,7 @@ def main():
             logger.info("Training...")
             logger.info("Total parameters: {}", utils.num_total_parameters(model))
             logger.info("Trainable parameters: {}", utils.num_trainable_parameters(model))
+            wandb.log({f"total_params": utils.num_total_parameters(model)})
             loss = train(model, device, train_loader, optimizer, args, calc_loss, scheduler if args.scheduler != "plateau" else None)
 
             model.epoch_callback(epoch)
