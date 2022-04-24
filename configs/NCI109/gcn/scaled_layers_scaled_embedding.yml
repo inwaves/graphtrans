@@ -7,5 +7,5 @@ runs: 1
 epochs: 200
 seed: 12344
 scheduler: plateau
-gnn_emb_dim: 184
+gnn_emb_dim: 256
 gnn_num_layer: 10
